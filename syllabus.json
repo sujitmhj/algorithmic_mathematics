@@ -1,0 +1,133 @@
+{
+  "chapters": [
+    {
+      "name": "Solution of Algebraic and Transcendental Equation",
+      "topics": [
+        "Newton Raphson Method",
+        "Secant Method",
+        "Solution of Systems of NonLinear Equations (Newton Raphson Method)"
+      ]
+    },
+    {
+      "name": "Interpolation",
+      "topics": [
+        "Errors in Polynomial interpolation",
+        "Finite Differences", "Differences of a polynomial",
+        "Newton's formulae for Interpolation",
+        "Bessel's Formula",
+        "Everett's Formula",
+        "Relation between Bessel's and Everett's Formulae",
+        "Lagrange's Interpolation Formula"
+      ]
+    },
+    {
+      "name": "Curve Fitting, B-Splines and Approximation",
+      "topics": [
+        "Least Square Curve Fitting Procedures (Linear, Quadratic and Exponential)",
+        "B-Splines",
+        "Approximation of Functions"
+      ]
+    },
+    {
+      "name": "Numerical Differentiation and integration",
+      "topics": [
+        "Numerical Differentiation",
+        "Trapezoidal Rule",
+        "Simpson's 1/3 Rule",
+        "Simpson's 3/8 Rule",
+        "Volume calculation",
+        "Newton-Cotes Integration Formulae",
+        "General Quadrature Formula",
+        "Gussian Integration"
+        ]
+    },
+    {
+      "name": "Matrices and Linear Systems of Equations",
+      "topics": [
+        "Solution of Linear Systems Direct Methods (Gauss Jordan)",
+        "Solution of Linear Systems Iterative Method (Gauss-Seidel)",
+        "Eigen value Problem (Eigen Value, Eigen Vector)"
+      ]
+    },
+    {
+      "name": "Numerical Solution of Ordinary Differential Equations",
+      "topics": [
+        "Solution of Taylor's Series",
+        "Euler's Method (Modified Method)",
+        "Predictor-Corrector Methods",
+        "Simultaneous and Higher Order Equations (4th Order Runge Kutta Method)",
+        "Boundary Value Problems (Finite Difference Method"
+      ]
+    },
+    {
+      "name": "Numerical Solution of the Partial Differential Equations",
+      "topics": [
+        "Finite Difference Approximations to derivatives",
+        "Laplace's Equations",
+        "Parabolic Equations",
+        "Hyperbolic Equations",
+        "Iterative Methods for Solution of Equations"
+      ]
+    },
+    {
+      "name": "Introducation and Descriptive Statistics",
+      "topics": [
+        "An Overview of Probalility and Statistics",
+        "Pictorial and tabular methods in Descriptive Statistics",
+        "Measures of Central Tendency, Dispersion and direction",
+        "Joint and conditional probabilities",
+        "Central limit theorem"
+      ]
+    },
+    {
+      "name": "Discrete Random Variables and Probalility Distributions",
+      "topics": [
+      "Random variables", 
+      "Probability distributions for random variables", 
+      "Expected values of discrete random variables", 
+      "The binomial probability distribution",
+      "Hypothesis testing using the binomial distribution",
+      "The Poisson probability distribution"]
+    },
+    {
+      "name": "Hypothesis Testing Procedures",
+      "topics": [
+      "Tests about the mean of a normal population",
+      "The t-test, Test procedures for a population variance",
+      "Z-tests for differences between two populations means",
+      "The two-sample t-test",
+      "A confidence interval for the mean of a normal population"
+      ]
+    },
+    {
+      "name": "Optimization Techniques",
+      "topics": [
+      "The simplex method, objective function and constraint conditions",
+      "changing inequalities to equalities",
+      "the conical form of solution",
+      "optimal values of variables",
+      "Integer programming, Dynamic programming"
+      ]
+    },
+    {
+      "name": "Transformation",
+      "topics": [
+      "Laplace transform",
+      "Fourier transform",
+      "Discrete Fourier transform",
+      "Fast Fourier transform",
+      "Z transform and their inverse transform"
+      ]
+    }
+  ],
+  "references":[
+    "E. Kreyszig, \"Advanced Engineering Mathematics\", Wiley-Eastern Publication",
+    "Jay L. Devore, \"Probability and Statistics for Engineering and the Sciences\", Brooks/Cole",
+    "Publishing Company, Monterey, California, 1982.",
+    "Introductory methods of Numerical analysis, S.S. Sastry",
+    "An Introduction to numerical computations, S. Yakowitz and F. Szidarovszky",
+    "Numerical Methods, Dr. V.N. Vedamurthy, Dr. N. Ch. S.N . Iyengar",
+    "Numerical Methods , E. Balagurusamy"
+  ]
+
+}

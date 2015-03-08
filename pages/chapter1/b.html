@@ -1,0 +1,71 @@
+<div class="row">
+                                <div class="col-lg-6">
+                                <h1>Inputs</h1>
+                                    <form role="form" id="secant_method">
+                                        <div class="form-group">
+                                            <label>Function</label>
+                                            <input class="form-control" value="x*x-2" name="fx" placeholder="Function f(x)">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>X1</label>
+                                            <input class="form-control" value="1" name="x1" placeholder="x1">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>X2</label>
+                                            <input class="form-control" value="10" name="x2" data-type="float" placeholder="x2">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Maximum Iterations</label>
+                                            <input class="form-control" value="20" name="maximum_iteration" data-type="int">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Tolerance</label>
+                                            <input class="form-control" name="tolerance" data-type="float" value="0.00000001">
+                                        </div>
+                                    </form>
+                                </div>
+                                <!-- /.col-lg-6 (nested) -->
+                                <div class="col-lg-6">
+                                    <h1>Output</h1>
+                                    <h2 id="answer"></h2>
+                                </div>
+                                <!-- /.col-lg-6 (nested) -->
+                                 
+                            </div>
+                            <div class="row">
+                                    <div class="col-lg-12 pull-center" style="text-align:center;">
+                                         <button type="button" class="btn btn-default calculate">Calculate</button>
+                                    </div>
+                                    <!-- /.col-lg-12 -->
+                                </div>                                
+                                <!-- /.row -->
+<script type="text/javascript">
+$(".calculate").click(function(){
+    var input = get_input("secant_method");
+    var haveWeFoundSolution = false;
+    for(var i=0;i<input.maximum_iteration;i++)
+    {    
+        var fx1 =  get_func_val(input.fx, {x:input.x1});
+        var fx2 =  get_func_val(input.fx, {x:input.x2});
+        var x = input.x2 - fx2*(input.x2-input.x1)/(fx2-fx1);
+        input.x1 = input.x2;
+        input.x2 = x;
+        if(Math.abs(input.x1 - input.x2)< input.tolerance)  
+        {          
+            haveWeFoundSolution = true;
+            break; 
+        }                                           
+
+    }
+
+    if (haveWeFoundSolution)
+    {
+        $("#answer").text(input.x2);
+
+    }      
+    else {
+
+         $("#answer").text("Sorry, didn't converge with given inputs");
+    }
+});
+</script>
