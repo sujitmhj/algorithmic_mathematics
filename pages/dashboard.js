@@ -39,8 +39,14 @@ function get_input(form_id)
     }
     return form_data;
 }
+$("#search_string").keyup(function(){
+
+   $("#side-menu").html(get_menu_html()); 
+    $('#side-menu').metisMenu();
+});
 function get_menu_html()
 {
+    var search_string = $("#search_string").val();
 
     var chapters = syllabus.chapters;
     var html_str = "";
@@ -48,23 +54,35 @@ function get_menu_html()
     {
         var name = chapters[i].name;
         var topics = chapters[i].topics;
-
-        html_str += "<li>";
-        html_str += '<a href="#">#'+(i+1) +". "+name+'<span class="fa arrow"></span></a>';
+        var match_parent = (name.trim().toLowerCase().indexOf(search_string.trim().toLowerCase())>-1 || search_string.length == 0)?true:false;
+        if(match_parent)
+        {
+            html_str += "<li>";
+            html_str += '<a href="#">#'+(i+1) +". "+name+'<span class="fa arrow"></span></a>';
+        }
         if(topics!=undefined && topics.length>0)
         {
-            html_str += '<ul class="nav nav-second-level">';
+            if(match_parent)
+            {
+                html_str += '<ul class="nav nav-second-level">';
+            }
             for(var j = 0;j<topics.length;j++)
             {
-                html_str += '<li>';
-                html_str += '<a href="#" class="topics_link" data-chapter="'+i+'" data-topic="'+j+'">'+topics[j]+'</a>';
-                html_str += '</li>';
+                if(match_parent || topics[j].trim().toLowerCase().indexOf(search_string.trim().toLowerCase())>-1)
+                {
+                    html_str += '<li>';
+                    html_str += '<a href="#" class="topics_link" data-chapter="'+i+'" data-topic="'+j+'">'+topics[j]+'</a>';
+                    html_str += '</li>';
+                }
             }
-            html_str += '</ul>';
-
+            if(match_parent)
+            {
+                html_str += '</ul>';
+            }
         }
-        
-        html_str += "</li>";
+        if (match_parent) {
+            html_str += "</li>";
+        }        
     }
     return html_str;
 }

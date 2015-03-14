@@ -1,0 +1,129 @@
+<div class="row">
+                                <div class="col-lg-6">
+                                <h1>Inputs</h1>
+                                    <form role="form" id="newton_interpolation">
+                                        <div class="form-group">
+                                            <label>Number of equations</label>
+                                            <input class="form-control" data-type="int" id="num_equations" name="num_inputs" placeholder="Number of equations">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Number of variables</label>
+                                            <input class="form-control" data-type="int" id="num_equations" name="num_variables" placeholder="Number of variables">
+                                        </div>
+                                        <span id="dynamic_input">
+                                            <div class="form-group">
+                                            <label>Coefficents of Equations</label>
+                                            <input  style="width:30px;" data-type="int" id="num_equations" name="num_variables" placeholder="Number of variables"> x1 + <input  style="width:30px; border: 1px solid #ccc; border-radius: 4px;" data-type="int" id="num_equations" name="num_variables" placeholder="Number of variables"> x2 +  <input  style="width:30px;" data-type="int" id="num_equations" name="num_variables" placeholder="Number of variables"> x3 = <input  style="width:30px;" data-type="int" id="num_equations" name="num_variables" placeholder="Number of variables">
+                                        
+                                            <input  style="width:30px;" data-type="int" id="num_equations" name="num_variables" placeholder="Number of variables"> x1 + <input  style="width:30px; border: 1px solid #ccc; border-radius: 4px;" data-type="int" id="num_equations" name="num_variables" placeholder="Number of variables"> x2 +  <input  style="width:30px;" data-type="int" id="num_equations" name="num_variables" placeholder="Number of variables"> x3 = <input  style="width:30px;" data-type="int" id="num_equations" name="num_variables" placeholder="Number of variables">
+                                        </div>
+                                        </span>
+                                        
+                                        
+                                    </form>
+                                </div>
+                                <!-- /.col-lg-6 (nested) -->
+                                <div class="col-lg-6">
+                                    <h1>Output</h1>
+                                    <h2 id="answer"></h2>
+                                </div>
+                                <!-- /.col-lg-6 (nested) -->
+                                 
+                            </div>
+                            <div class="row">
+                                    <div class="col-lg-12 pull-center" style="text-align:center;">
+                                         <button type="button" class="btn btn-default calculate">Calculate</button>
+                                    </div>
+                                    <!-- /.col-lg-12 -->
+                                </div>                                
+                                <!-- /.row -->
+<script type="text/javascript">
+$("#num_inputs").keyup(function(){
+    
+    var num_inputs = parseInt(this.value);
+  
+    if(isNaN(num_inputs)){
+         $("#dynamic_input").html(""); 
+         return;  
+    }
+    var html_str = "";
+    html_str += '<div class="panel panel-default">';
+    html_str += '<div class="panel-heading">(x,y) input Table</div>';
+    html_str += '<table class="table" style="text-align:center;">';
+    for(var i=0;i<2;i++)
+    {
+        html_str += "<tr>";
+        for(var j=0;j<num_inputs+1;j++)
+        {
+            html_str += "<td>";
+            if(j==0)
+            {
+                html_str += String.fromCharCode(120+i);
+            }
+            else
+            {
+                html_str += "<input type='text' style='width:30px;' placeholder='"+String.fromCharCode(120+i)+(j-1)+"' data-type='float' name='row_"+i+"_col_"+(j-1)+"'>";
+            }
+            html_str += "</td>";
+
+        }
+        html_str += "</tr>";
+    }
+    html_str += '</table>';
+    html_str += '</div>';
+    html_str += '<div class="form-group">';
+    html_str += '<label>Value of x</label>';
+    html_str += '<input class="form-control" name="val_x" data-type="float" placeholder="Value of x">';
+    html_str += '</div>';
+    $("#dynamic_input").html(html_str);
+
+});
+function get_diff_table(input)
+{
+    var diff_table = [];
+    diff_table[0] = [];
+    for(var i=0;i<input.num_inputs;i++)
+    {
+        var input_name = "row_1_col_";
+        diff_table[0][i] = input[input_name+i];
+    }
+
+    for(var i=0;i<diff_table[0].length-1;i++)
+    {
+        diff_table[i+1] = [];
+        for(var j=0;j<diff_table[0].length-i-1;j++)
+        {
+            diff_table[i+1][j] = diff_table[i][j+1] - diff_table[i][j];
+
+        }
+    }
+    return diff_table;
+}
+function calculate_coefficient(r, s)
+{
+    var ans = 1;
+    for(var i=0;i<s;i++)
+    {
+        ans *= (r-i)/(i+1);
+    }
+    return ans;
+
+}
+$(".calculate").click(function(){
+    var input = get_input("newton_interpolation");
+
+    var diff = get_diff_table(input);
+    var h = input.row_0_col_1 - input.row_0_col_0;
+    var r = (input.val_x - input.row_0_col_0)/h;
+    var ans = 0;
+    for(var i=0;i<input.num_inputs;i++)
+    {     
+        ans += calculate_coefficient(r,i)*diff[i][0];                                       
+    }
+
+    
+    $("#answer").text(ans);
+
+    
+});
+</script>
