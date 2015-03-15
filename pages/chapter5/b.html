@@ -90,37 +90,46 @@ function calculate_coefficient(r, s)
 }
 $(".calculate").click(function(){
     var input = get_input("linear_equations");
-
+    var error_margin = 0.000000000001;
     var equation_matrix = get_equations(input);
+    var found = false;
+    var x = [];
     for(var i = 0;i<input.num_variables;i++)
     {
-        var temp_i = equation_matrix[i][i];
-        for(var j=0;j<input.num_variables;j++)
+        x.push(equation_matrix[i][input.num_variables]/equation_matrix[i][i]);
+    }
+    while(!found)
+    {
+        found = true;
+        for(var i = 0;i<input.num_variables;i++)
         {
-            if(i!=j)
+            var sum = equation_matrix[i][input.num_variables];
+            for(var j = 0;j<input.num_variables;j++)
             {
-                var temp = equation_matrix[j][i];
-                for(var k=0; k<input.num_variables+1;k++)
+                if(i!=j)
                 {
-                    equation_matrix[j][k] -= equation_matrix[i][k]/temp_i*temp;
+                    sum -= equation_matrix[i][j]*x[j];
                 }
             }
-        }
-        for(var n=0;n<input.num_variables+1;n++)
-        {
-           equation_matrix[i][n] /= temp_i;
-        }
 
+            var dummy = sum/equation_matrix[i][i];
+            if(dummy == Infinity)
+            {
+                console.log(sum, equation_matrix[i][i]);
+            }
+            var error = Math.abs((x[i]-dummy)/dummy);
+            if(error>error_margin)
+            {
+                found = false;
+            }
+            x[i] = dummy;
+        }
     }
     var ans_html = "";
     for(var i=0;i<input.num_variables;i++)
     {     
-        ans_html += "x"+(i+1)+" = "+equation_matrix[i][input.num_variables]+"<br/>";                                       
-    }
-
-    
-    $("#answer").html(ans_html);
-
-    
+        ans_html += "x"+(i+1)+" = "+x[i]+"<br/>";                                       
+    }    
+    $("#answer").html(ans_html);    
 });
 </script>
