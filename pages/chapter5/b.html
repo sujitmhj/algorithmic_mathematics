@@ -97,33 +97,46 @@ $(".calculate").click(function(){
     for(var i = 0;i<input.num_variables;i++)
     {
         x.push(equation_matrix[i][input.num_variables]/equation_matrix[i][i]);
+        console.log()
+
     }
-    while(!found)
+    var count = 0;
+    while(!found || count > 30)
     {
+        count++;
         found = true;
         for(var i = 0;i<input.num_variables;i++)
         {
             var sum = equation_matrix[i][input.num_variables];
             for(var j = 0;j<input.num_variables;j++)
             {
+                var previous = sum;
                 if(i!=j)
                 {
                     sum -= equation_matrix[i][j]*x[j];
                 }
+                if(sum == Infinity)
+                {
+                    console.log("sum infinity", previous,equation_matrix[i][j],x[j]);
+                }
             }
 
             var dummy = sum/equation_matrix[i][i];
-            if(dummy == Infinity)
-            {
-                console.log(sum, equation_matrix[i][i]);
-            }
+           
             var error = Math.abs((x[i]-dummy)/dummy);
             if(error>error_margin)
             {
                 found = false;
             }
+            if(dummy == -Infinity || dummy == -Infinity)
+            {
+                console.log("dummy infinity", sum, equation_matrix[i][i]);
+            }
+
             x[i] = dummy;
+            console.log(x[i]);
         }
+
     }
     var ans_html = "";
     for(var i=0;i<input.num_variables;i++)

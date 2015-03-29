@@ -58,7 +58,7 @@ function get_menu_html()
         if(match_parent)
         {
             html_str += "<li>";
-            html_str += '<a href="#">#'+(i+1) +". "+name+'<span class="fa arrow"></span></a>';
+            html_str += '<a href="#chapter'+i+'">#'+(i+1) +". "+name+'<span class="fa arrow"></span></a>';
         }
         if(topics!=undefined && topics.length>0)
         {
@@ -71,7 +71,7 @@ function get_menu_html()
                 if(match_parent || topics[j].trim().toLowerCase().indexOf(search_string.trim().toLowerCase())>-1)
                 {
                     html_str += '<li>';
-                    html_str += '<a href="#" class="topics_link" data-chapter="'+i+'" data-topic="'+j+'">'+topics[j]+'</a>';
+                    html_str += '<a href="#chapter'+i+'topic'+j+'" class="topics_link" data-chapter="'+i+'" data-topic="'+j+'">'+topics[j]+'</a>';
                     html_str += '</li>';
                 }
             }
@@ -101,6 +101,7 @@ $("#page_title").html(topic_name+code_demo);
 $.get("chapter"+(parseInt(chapter_id)+1)+"/"+String.fromCharCode(97+parseInt(topic_id))+".html", function(html_content) {
     current_html = html_content;
     $("#content_area").html(current_html);
+    MathJax.Hub.Typeset();
 }).fail(function() {
     $("#content_area").html("This topic is still under construction. Please contribute :)");
   });
@@ -113,11 +114,14 @@ var action = $(this).attr("data-action");
 if(action == "code")
 {
     var safe_html = $('<div/>').text(current_html).html();
-
     $("#content_area").html("<textarea class='col-lg-12' rows='22' disabled>"+safe_html+"</textarea>");
 }
 else
 {
-     $("#content_area").html(current_html);
+    $("#content_area").html(current_html);
+    MathJax.Hub.Typeset();
+
 }
+
+
 });
