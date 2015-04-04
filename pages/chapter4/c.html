@@ -1,7 +1,7 @@
 <div class="row">
                                 <div class="col-lg-6">
                                 <h1>Inputs</h1>
-                                    <form role="form" id="trapezoidal">
+                                    <form role="form" id="simpson1by3">
                                         <div class="form-group">
                                             <label>Function</label>
                                             <input class="form-control" value="x*x-2" name="fx" placeholder="Function f(x)">
@@ -37,7 +37,7 @@
                                 <!-- /.row -->
 <script type="text/javascript">
 $(".calculate").click(function(){
-    var input = get_input("trapezoidal");
+    var input = get_input("simpson1by3l");
     var sum = 0;
     for(var i=input.lower_limit+input.h, j=1;i<input.upper_limit;i+=input.h, j++)
     {   

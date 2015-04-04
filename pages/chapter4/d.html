@@ -1,7 +1,7 @@
 <div class="row">
                                 <div class="col-lg-6">
                                 <h1>Inputs</h1>
-                                    <form role="form" id="trapezoidal">
+                                    <form role="form" id="simpson3by8">
                                         <div class="form-group">
                                             <label>Function</label>
                                             <input class="form-control" value="x*x-2" name="fx" placeholder="Function f(x)">
@@ -37,14 +37,14 @@
                                 <!-- /.row -->
 <script type="text/javascript">
 $(".calculate").click(function(){
-    var input = get_input("trapezoidal");
+    var input = get_input("simpson3by8");
     var sum = 0;
     for(var i=input.lower_limit+input.h, j=1;i<input.upper_limit;i+=input.h, j++)
     {   
-        var multiplier = (j%2 == 0)?2:4;
+        var multiplier = (j%3 == 0)?2:3;
         sum  += multiplier * math.eval(input.fx.replace(new RegExp("x", 'g'),i));                                  
     }
-    sum = input.h/3*(sum+input.lower_limit+input.upper_limit);
+    sum = 3*input.h/8*(sum+input.lower_limit+input.upper_limit);
     var answer_text = '$$\\int_{'+input.lower_limit+'}^{'+input.upper_limit+'}('+input.fx+')dx='+sum+'$$';
     $("#answer").text(answer_text);
     MathJax.Hub.Typeset();
