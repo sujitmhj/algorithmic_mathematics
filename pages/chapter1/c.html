@@ -1,1 +1,83 @@
-Possibly we can write notes if demo is not available.
+<div class="row">
+                                <div class="col-lg-6">
+                                <h1>Inputs</h1>
+                                    <form role="form" id="newton_raphson">
+                                        <div class="form-group">
+                                            <label>No linear function</label>
+                                            <input class="form-control" value="x*x-2" name="fx" placeholder="Function f(x, y)">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Value of $\frac{df}{dx}$</label>
+                                            <input class="form-control" value="2*x" name="fxx" placeholder="df/dx">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Value of $\frac{df}{dy}$</label>
+                                            <input class="form-control" value="2*x" name="fxy" placeholder="df/dy">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Initial Guess $x_o$</label>
+                                            <input class="form-control" value="1" name="initial_guess" data-type="float" placeholder="Initial Guess xo">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Initial Guess $y_o$</label>
+                                            <input class="form-control" value="1" name="initial_guess" data-type="float" placeholder="Initial Guess xo">
+                                        </div> 
+                                        <div class="form-group">
+                                            <label>Maximum Iterations</label>
+                                            <input class="form-control" value="20" name="maximum_iteration" data-type="int">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Tolerance</label>
+                                            <input class="form-control" name="tolerance" data-type="float" value="0.001">
+                                        </div>
+                                    </form>
+                                </div>
+                                <!-- /.col-lg-6 (nested) -->
+                                <div class="col-lg-6">
+                                    <h1>Output</h1>
+                                    <h2 id="answer"></h2>
+                                </div>
+                                <!-- /.col-lg-6 (nested) -->
+                                 
+                            </div>
+                            <div class="row">
+                                    <div class="col-lg-12 pull-center" style="text-align:center;">
+                                         <button type="button" class="btn btn-default calculate">Calculate</button>
+                                    </div>
+                                    <!-- /.col-lg-12 -->
+                                </div>                                
+                                <!-- /.row -->
+<script type="text/javascript">
+$(".calculate").click(function(){
+    var input = get_input("newton_raphson");
+    var epsilon = 0.0000000000001;
+    var haveWeFoundSolution = false;
+    for(var i=0;i<input.maximum_iteration;i++)
+    {     
+        var y = get_func_val(input.fx, {x:input.initial_guess});
+        var yy = get_func_val(input.fxx, {x:input.initial_guess});
+     
+        if(Math.abs(yy) < epsilon)                        
+            break; 
+     
+        var x1 = input.initial_guess - y/yy;
+        if(Math.abs(x1 - input.initial_guess)/Math.abs(x1) < input.tolerance)  
+        {          
+            haveWeFoundSolution = true;
+            break; 
+        }     
+        input.initial_guess = x1;                                        
+
+    }
+
+    if (haveWeFoundSolution)
+    {
+        $("#answer").text(input.initial_guess);
+
+    }      
+    else {
+
+         $("#answer").text("Sorry, didn't converge with given inputs");
+    }
+});
+</script>
